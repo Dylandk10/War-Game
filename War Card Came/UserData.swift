@@ -44,6 +44,8 @@ class UserData {
         } else {
             self.longestStreak = 0
         }
+        
+        print("User Default longest value: " + String(self.longestStreak))
     }
     
     

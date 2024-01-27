@@ -12,9 +12,9 @@ struct ContentView: View {
     
     //longest streak coming from user data local or set to 0 if not found
     //in userData class
-    @State var longestStreak = 0
+    @State var longestStreak: Int
     init(longestStreak: Int = 0) {
-        self.longestStreak = userData.getLongestStreak()
+        self.longestStreak = self.userData.getLongestStreak()
     }
     
     @State var runningStreak = true
@@ -103,6 +103,7 @@ struct ContentView: View {
         if(pCard > cCard) {
             playerScore = playerScore + 1
             winner = "Player 1 wins!"
+            runningStreak = true
         } else if(cCard > pCard){
             cpuScore = cpuScore + 1
             winner = "CPU Wins!"
