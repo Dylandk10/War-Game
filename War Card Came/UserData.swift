@@ -45,7 +45,6 @@ class UserData {
             self.longestStreak = 0
         }
         
-        print("User Default longest value: " + String(self.longestStreak))
     }
     
     
@@ -53,7 +52,7 @@ class UserData {
     
     func saveData(_ num: Int) {
         let defaults = UserDefaults.standard
-        defaults.set(String(self.longestStreak), forKey: self.userKey)
+        defaults.set(String(num), forKey: self.userKey)
     }
     
     

@@ -83,6 +83,8 @@ struct ContentView: View {
             }
             
             Spacer()
+            
+        //holds the application is portrait mode and when screen is not active removes the hold
         }.onAppear {
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation") // Forcing the rotation to portrait
             AppDelegate.orientationLock = .portrait // And making sure it stays that way
