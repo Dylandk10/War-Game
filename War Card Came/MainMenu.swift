@@ -50,8 +50,8 @@ struct MainMenu: View {
     //probably not the best to create a new user but the method is a staic use
     //this will reset the user storage
     func resetLongestStreak() {
-        let userData = UserData()
-        userData.saveData(0)
+        let userData = UserData.shared
+        userData.setAndSaveLongestStreak(0)
     }
 }
 

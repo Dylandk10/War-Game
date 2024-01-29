@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let userData = UserData()
+    var userData = UserData.shared
     
     //longest streak coming from user data local or set to 0 if not found
     //in userData class

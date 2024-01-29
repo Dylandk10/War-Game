@@ -9,6 +9,7 @@ import Foundation
 
 class UserData {
     let userKey = "longestStreak"
+    static let shared = UserData()
     
     //over all longest streak
     var longestStreak: Int = 0
@@ -16,19 +17,12 @@ class UserData {
     //current streak
     var currentStreak = 0
     
-    
-    func setAndSaveLongestStreak(_ num : Int) {
-        self.longestStreak = num
-        self.saveData(num)
-    }
-    
-    func getLongestStreak() -> Int {
-        return self.longestStreak
-    }
-    
+    //for betting
+    var myMoney:Int = 2000
+    var bet:Int = 0
     
     //get the data when the DefaultData class is started
-    init() {
+    private init() {
         let defaults = UserDefaults.standard
         if let stringOne = defaults.string(forKey:self.userKey) {
             
@@ -48,11 +42,24 @@ class UserData {
     }
     
     
+    //getters and setters for longest streak
+    func setAndSaveLongestStreak(_ num : Int) {
+        self.longestStreak = num
+        self.saveData(num)
+    }
+    
+    func getLongestStreak() -> Int {
+        return self.longestStreak
+    }
+    
+    
+
+    
+    
     //storing the data to default user key
     
     func saveData(_ num: Int) {
-        let defaults = UserDefaults.standard
-        defaults.set(String(num), forKey: self.userKey)
+        DataHandler.saveData(num, self.userKey)
     }
     
     
@@ -71,4 +78,29 @@ class UserData {
             self.currentStreak = 0
         }
     }
+    
+    
+    
+    //for setting and getting bet
+    func addBet(_ num: Int) {
+        self.bet = self.bet + num
+    }
+    
+    
+    func getBet() -> Int {
+        return self.bet
+    }
+    
+    
+    func addMoney(_ num: Int) {
+        self.myMoney = self.myMoney + num
+    }
+    
+    func getMyMoney() -> Int {
+        return self.myMoney
+    }
+    
+    
+    
+    
 }
