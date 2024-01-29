@@ -23,8 +23,8 @@ class UserData :ObservableObject {
     
     
     //for betting
-    var myMoney:Int = 2000
-    var bet:Int = 0
+    @Published var myMoney:Int = 1900
+    @Published var bet:Int = 100
     
     //get the data when the DefaultData class is started
     private init() {
@@ -119,7 +119,13 @@ class UserData :ObservableObject {
     
     //for setting and getting bet
     func addBet(_ num: Int) {
-        self.bet = self.bet + num
+        if(num > self.myMoney) {
+            self.bet = self.myMoney
+        } else {
+            self.bet = self.bet + num
+        }
+        
+        self.myMoney = self.myMoney - self.bet
     }
     
     

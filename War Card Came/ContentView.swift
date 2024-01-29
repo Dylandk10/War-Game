@@ -28,37 +28,19 @@ struct ContentView: View {
                     .font(.title3)
                     .foregroundColor(.yellow)
                     .fontWeight(.bold)
-                    .padding(.top, 15)
-                Image("logo").padding(.top, 15)
-                HStack {
-                    Spacer()
-                    Image(playerCard)
-                    Spacer()
-                    Image(cpuCard)
-                    Spacer()
-                }
-                Spacer().frame(height: 39)
+                    .padding(.top, 5)
                 
-                Button {
-                    deal()
-                } label: {
-                    Image("button")
-                }
-                Text(winner)
-                    .font(.title3)
-                    .foregroundColor(.yellow)
-                    .fontWeight(.bold)
-                
-                
-                Spacer().frame(height: 15)
+                //logo and score
                 HStack {
                     Spacer()
                     VStack {
-                        Text("PLAYER")
+                        Text("USR")
                             .padding(.bottom, 2)
                             .underline()
                         Text(String(self.userData.playerScore))
                     }
+                    Spacer()
+                    Image("logo")
                     Spacer()
                     VStack {
                         Text("CPU")
@@ -68,10 +50,62 @@ struct ContentView: View {
                     }
                     
                     Spacer()
+                    
                 }
                 .font(.title)
                 .foregroundColor(.white)
                 .padding(.bottom, 15)
+                
+                
+                //cards
+                HStack {
+                    Spacer()
+                    Image(playerCard)
+                    Spacer()
+                    Image(cpuCard)
+                    Spacer()
+                }
+                
+                
+                //deal button and winner
+                VStack {
+                    Spacer().frame(height: 10)
+                    Button {
+                        deal()
+                    } label: {
+                        Image("button")
+                    }
+                    Text(winner)
+                        .font(.title2)
+                        .foregroundColor(.yellow)
+                        .fontWeight(.bold)
+                    
+                    
+                    Spacer().frame(height: 15)
+                }
+                VStack {
+                    HStack {
+                        Text("Current Bet:")
+                        Text("$" + String(self.userData.bet)).foregroundColor(.red)
+                    }
+                    
+                    Text("Your Money: $" + String(self.userData.myMoney))
+                    
+                }
+                .font(.title3)
+                .padding(18)
+                .foregroundColor(.yellow)
+                .background(Rectangle().foregroundColor(.black).opacity(0.3).cornerRadius(9))
+                
+                Spacer().frame(height: 60)
+                HStack {
+                    
+                    BettingButton(buttonTitle: "$1", action: {})
+                    BettingButton(buttonTitle: "$10", action: {})
+                    BettingButton(buttonTitle: "$20", action: {})
+                    BettingButton(buttonTitle: "$100", action: {})
+                    
+                }
                 Spacer()
                 
             }
@@ -90,7 +124,7 @@ struct ContentView: View {
     
     
     
-    //deal cards
+    //main game engine to handle logic then passes of the results to user data
     func deal() {
         if !winner.isEmpty {
             winner = ""
@@ -116,6 +150,23 @@ struct ContentView: View {
         userData.calculateSteak(runningStreak)
     }
 }
+
+struct BettingButton: View {
+    let buttonTitle: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(buttonTitle, action: action)
+            .font(.system(.title3, design: .rounded))
+            .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+            .frame(maxWidth: 80)
+            .background(.yellow)
+            .foregroundColor(.black)
+            .clipShape(Capsule())
+    }
+}
+
+
 
 
 
