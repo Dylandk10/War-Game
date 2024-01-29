@@ -7,15 +7,20 @@
 
 import Foundation
 
-class UserData {
+class UserData :ObservableObject {
     let userKey = "longestStreak"
     static let shared = UserData()
     
     //over all longest streak
-    var longestStreak: Int = 0
+    @Published var longestStreak: Int
     
-    //current streak
+    //player and cpu score
+    @Published var playerScore = 0
+    @Published var cpuScore = 0
+    
+    //current streak which is reset after every time cpu wins
     var currentStreak = 0
+    
     
     //for betting
     var myMoney:Int = 2000
@@ -48,10 +53,41 @@ class UserData {
         self.saveData(num)
     }
     
+    //get the longest streak no need to access default as all sets are made by setandSave
     func getLongestStreak() -> Int {
         return self.longestStreak
     }
     
+    
+    
+    func getCurrentStreak() -> Int {
+        return self.currentStreak
+    }
+    
+    
+    //reseting streaks and score
+    func resetCurrentStreak() {
+        self.currentStreak = 0
+    }
+    
+    func resetPlayerScore() {
+        self.playerScore = 0
+    }
+    
+    func resetCpuScore() {
+        self.cpuScore = 0
+    }
+    
+    
+    
+    //incrementing score
+    func incrementPlayerScore() {
+        self.playerScore = self.playerScore + 1
+    }
+    
+    func incrementCpuScore() {
+        self.cpuScore = self.cpuScore + 1
+    }
     
 
     

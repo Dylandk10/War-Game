@@ -8,14 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var userData = UserData.shared
+    @ObservedObject var userData = UserData.shared
     
-    //longest streak coming from user data local or set to 0 if not found
-    //in userData class
-    @State var longestStreak: Int
-    init(longestStreak: Int = 0) {
-        self.longestStreak = self.userData.getLongestStreak()
-    }
     
     @State var runningStreak = true
     
@@ -24,15 +18,13 @@ struct ContentView: View {
     
     @State var winner = "Let's Deal!"
     
-    @State var playerScore = 0
-    @State var cpuScore = 0
     
     var body: some View {
         ZStack{
             Image("background-plain")
             VStack{
                 Spacer()
-                Text("Longest streak: " + String(longestStreak))
+                Text("Longest streak: " + String(userData.longestStreak))
                     .font(.title3)
                     .foregroundColor(.yellow)
                     .fontWeight(.bold)
@@ -45,7 +37,7 @@ struct ContentView: View {
                     Image(cpuCard)
                     Spacer()
                 }
-                Spacer()
+                Spacer().frame(height: 39)
                 
                 Button {
                     deal()
@@ -58,31 +50,33 @@ struct ContentView: View {
                     .fontWeight(.bold)
                 
                 
-                Spacer()
+                Spacer().frame(height: 15)
                 HStack {
                     Spacer()
                     VStack {
                         Text("PLAYER")
                             .padding(.bottom, 2)
                             .underline()
-                        Text(String(playerScore))
+                        Text(String(self.userData.playerScore))
                     }
                     Spacer()
                     VStack {
                         Text("CPU")
                             .padding(.bottom, 2)
                             .underline()
-                        Text(String(cpuScore))
+                        Text(String(self.userData.cpuScore))
                     }
+                    
                     Spacer()
                 }
                 .font(.title)
                 .foregroundColor(.white)
                 .padding(.bottom, 15)
                 Spacer()
+                
             }
             
-            Spacer()
+            
             
         //holds the application is portrait mode and when screen is not active removes the hold
         }.onAppear {
@@ -108,11 +102,11 @@ struct ContentView: View {
         cpuCard = "card" + String(cCard)
         
         if(pCard > cCard) {
-            playerScore = playerScore + 1
+            self.userData.incrementPlayerScore()
             winner = "Player 1 wins!"
             runningStreak = true
         } else if(cCard > pCard){
-            cpuScore = cpuScore + 1
+            self.userData.incrementCpuScore()
             winner = "CPU Wins!"
             runningStreak = false
         } else {
@@ -120,7 +114,6 @@ struct ContentView: View {
         }
         
         userData.calculateSteak(runningStreak)
-        longestStreak = userData.getLongestStreak()
     }
 }
 

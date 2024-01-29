@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainMenu: View {
+    @ObservedObject var userData = UserData.shared
+    @State var isPopUp = false
     
     var body: some View {
         NavigationView {
@@ -30,12 +32,20 @@ struct MainMenu: View {
                         })
                         
                         Spacer().frame(height: 25)
-                        MenuButtonAction(buttonTitle: "Reset Longest Streak", action: {resetLongestStreak()})
+                        MenuButtonAction(buttonTitle: "Reset Longest Streak", action: {self.isPopUp = true})
                         Text("Created By Dylan Kelly")
                             .padding(.top, 50)
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
+                    .alert(isPresented: self.$isPopUp, content: {
+                        Alert(title: Text("Are you Sure?"),
+                              message: Text("Do you want to reset your longest streak?"),
+                              primaryButton: .destructive(Text("Reset")) {
+                                resetLongestStreak()
+                                },
+                              secondaryButton: .cancel())
+                    })
                     .padding(50)
                     
                     
@@ -50,8 +60,10 @@ struct MainMenu: View {
     //probably not the best to create a new user but the method is a staic use
     //this will reset the user storage
     func resetLongestStreak() {
-        let userData = UserData.shared
-        userData.setAndSaveLongestStreak(0)
+        self.userData.setAndSaveLongestStreak(0)
+        self.userData.resetCurrentStreak()
+        self.userData.resetPlayerScore()
+        self.userData.resetCpuScore()
     }
 }
 
