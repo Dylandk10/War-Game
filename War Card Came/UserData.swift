@@ -9,6 +9,7 @@ import Foundation
 
 class UserData :ObservableObject {
     let userKey = "longestStreak"
+    let startingAmount = 100
     static let shared = UserData()
     
     //over all longest streak
@@ -116,16 +117,33 @@ class UserData :ObservableObject {
     }
     
     
+    //function to handle if player wins add money
+    func playerWon() {
+        self.myMoney = self.myMoney + (self.bet * 2)
+    }
+    
+    func handleDraw() {
+        self.myMoney = self.myMoney + self.bet
+    }
+    
+    
+    func prepareNextHand() {
+        self.myMoney = self.myMoney - self.startingAmount
+        self.bet = self.startingAmount
+    }
+    
+    
     
     //for setting and getting bet
     func addBet(_ num: Int) {
-        if(num > self.myMoney) {
-            self.bet = self.myMoney
+        if(num >= self.myMoney) {
+            self.bet = self.bet + myMoney
+            self.myMoney = 0
         } else {
             self.bet = self.bet + num
+            self.myMoney = self.myMoney - num
         }
         
-        self.myMoney = self.myMoney - self.bet
     }
     
     

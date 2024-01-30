@@ -79,7 +79,7 @@ struct ContentView: View {
                         .font(.title2)
                         .foregroundColor(.yellow)
                         .fontWeight(.bold)
-                    
+                     
                     
                     Spacer().frame(height: 15)
                 }
@@ -100,10 +100,10 @@ struct ContentView: View {
                 Spacer().frame(height: 60)
                 HStack {
                     
-                    BettingButton(buttonTitle: "$1", action: {})
-                    BettingButton(buttonTitle: "$10", action: {})
-                    BettingButton(buttonTitle: "$20", action: {})
-                    BettingButton(buttonTitle: "$100", action: {})
+                    BettingButton(buttonTitle: "$1", action: {addBet(1)})
+                    BettingButton(buttonTitle: "$10", action: {addBet(10)})
+                    BettingButton(buttonTitle: "$20", action: {addBet(20)})
+                    BettingButton(buttonTitle: "$100", action: {addBet(100)})
                     
                 }
                 Spacer()
@@ -135,19 +135,34 @@ struct ContentView: View {
         playerCard = "card" + String(pCard)
         cpuCard = "card" + String(cCard)
         
+        //player has won
         if(pCard > cCard) {
             self.userData.incrementPlayerScore()
             winner = "Player 1 wins!"
             runningStreak = true
+            self.userData.playerWon()
+        
+        //player loses
         } else if(cCard > pCard){
             self.userData.incrementCpuScore()
             winner = "CPU Wins!"
             runningStreak = false
+            
+            
+         //draw between cpu and player
         } else {
             winner = "Its a Draw!"
+            self.userData.handleDraw()
         }
         
+        self.userData.prepareNextHand()
         userData.calculateSteak(runningStreak)
+    }
+    
+     
+    
+    func addBet(_ num: Int) {
+        self.userData.addBet(num)
     }
 }
 
