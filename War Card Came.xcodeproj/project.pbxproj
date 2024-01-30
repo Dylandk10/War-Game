@@ -57,13 +57,13 @@
 		B9A0A0A82B64183200D54047 /* War Card Came */ = {
 			isa = PBXGroup;
 			children = (
+				B9A0A0C12B681E7600D54047 /* Assets.xcassets */,
 				B9A0A0BB2B656F3E00D54047 /* MainMenu.swift */,
 				B9A0A0B92B65428500D54047 /* UserData.swift */,
 				B9A0A0A92B64183200D54047 /* War_Card_CameApp.swift */,
 				B9A0A0AB2B64183200D54047 /* ContentView.swift */,
 				B9A0A0AF2B64183A00D54047 /* Preview Content */,
 				B9A0A0BD2B66CA0100D54047 /* DataHandler.swift */,
-				B9A0A0C12B681E7600D54047 /* Assets.xcassets */,
 			);
 			path = "War Card Came";
 			sourceTree = "<group>";

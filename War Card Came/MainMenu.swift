@@ -19,7 +19,7 @@ struct MainMenu: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    VStack {
+                    VStack { 
                         Text("Main Menu")
                             .font(.largeTitle)
                             .fontWeight(.bold)
