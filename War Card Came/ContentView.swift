@@ -9,107 +9,141 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var userData = UserData.shared
-    
-    
     @State var runningStreak = true
-    
     @State var playerCard = "back"
     @State var cpuCard = "back"
-    
     @State var winner = "Let's Deal!"
+    
+    var bounds = UIScreen.main.bounds
     
     
     var body: some View {
         ZStack{
             Image("background-plain")
+
             VStack{
-                Spacer()
-                Text("Longest streak: " + String(userData.longestStreak))
-                    .font(.title3)
-                    .foregroundColor(.yellow)
-                    .fontWeight(.bold)
-                    .padding(.top, 5)
-                
-                //logo and score
-                HStack {
                     Spacer()
-                    VStack {
-                        Text("USR")
-                            .padding(.bottom, 2)
-                            .underline()
-                        Text(String(self.userData.playerScore))
-                    }
-                    Spacer()
-                    Image("logo")
-                    Spacer()
-                    VStack {
-                        Text("CPU")
-                            .padding(.bottom, 2)
-                            .underline()
-                        Text(String(self.userData.cpuScore))
-                    }
-                    
-                    Spacer()
-                    
-                }
-                .font(.title)
-                .foregroundColor(.white)
-                .padding(.bottom, 15)
-                
-                
-                //cards
-                HStack {
-                    Spacer()
-                    Image(playerCard)
-                    Spacer()
-                    Image(cpuCard)
-                    Spacer()
-                }
-                
-                
-                //deal button and winner
-                VStack {
-                    Spacer().frame(height: 10)
-                    Button {
-                        deal()
-                    } label: {
-                        Image("button")
-                    }
-                    Text(winner)
-                        .font(.title2)
+                    Text("Longest streak: " + String(userData.longestStreak))
+                        .font(.title3)
                         .foregroundColor(.yellow)
                         .fontWeight(.bold)
-                     
+                        .padding(.top, 5)
                     
-                    Spacer().frame(height: 15)
-                }
-                VStack {
+                    //logo and score
                     HStack {
-                        Text("Current Bet:")
-                        Text("$" + String(self.userData.bet)).foregroundColor(.red)
+                        Spacer()
+                        VStack {
+                            Text("USR")
+                                .padding(.bottom, 2)
+                                .underline()
+                            Text(String(self.userData.playerScore))
+                        }
+                        Spacer()
+                        Image("logo")
+                        Spacer()
+                        VStack {
+                            Text("CPU")
+                                .padding(.bottom, 2)
+                                .underline()
+                            Text(String(self.userData.cpuScore))
+                        }
+                        
+                        Spacer()
+                        
+                    }
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .padding(.bottom, 15)
+                    
+                    
+                    //cards
+                    HStack {
+                        Spacer()
+                        Image(playerCard)
+                        Spacer()
+                        Image(cpuCard)
+                        Spacer()
                     }
                     
-                    Text("Your Money: $" + String(self.userData.myMoney))
                     
-                }
-                .font(.title3)
-                .padding(18)
-                .foregroundColor(.yellow)
-                .background(Rectangle().foregroundColor(.black).opacity(0.3).cornerRadius(9))
+                    //deal button and winner
+                    VStack {
+                        Spacer().frame(height: 10)
+                        Button {
+                            deal()
+                        } label: {
+                            Image("button")
+                        }
+                        .disabled(self.userData.gameOver)
+                        Text(winner)
+                            .font(.title2)
+                            .foregroundColor(.yellow)
+                            .fontWeight(.bold)
+                         
+                        
+                        Spacer().frame(height: 15)
+                    }
+                    VStack {
+                        HStack {
+                            Text("Current Bet:")
+                            Text("$" + String(self.userData.bet)).foregroundColor(.red)
+                        }
+                        
+                        Text("Your Money: $" + String(self.userData.myMoney))
+                        
+                    }
+                    .font(.title3)
+                    .padding(18)
+                    .foregroundColor(.yellow)
+                    .background(Rectangle().foregroundColor(.black).opacity(0.3).cornerRadius(9))
+                    
+                    Spacer().frame(height: 60)
+                    HStack {
+                        
+                        BettingButton(buttonTitle: "$1", action: {addBet(1)})
+                        BettingButton(buttonTitle: "$10", action: {addBet(10)})
+                        BettingButton(buttonTitle: "$20", action: {addBet(20)})
+                        BettingButton(buttonTitle: "$100", action: {addBet(100)})
+                        
+                    }
+                    Spacer()
                 
-                Spacer().frame(height: 60)
-                HStack {
                     
-                    BettingButton(buttonTitle: "$1", action: {addBet(1)})
-                    BettingButton(buttonTitle: "$10", action: {addBet(10)})
-                    BettingButton(buttonTitle: "$20", action: {addBet(20)})
-                    BettingButton(buttonTitle: "$100", action: {addBet(100)})
+            }
+            if self.userData.gameOver {
+                VStack {
                     
+                    HStack {
+                        Image(systemName: "gamecontroller")
+                            .imageScale(.large)
+                        Text("Game Over!")
+                            .font(.title)
+                            .padding()
+                        Image(systemName: "gamecontroller")
+                            .imageScale(.large)
+                        
+                    }
+                    Text("What a game! with its always hard to decide when to bet and when to not!")
+
+                    Button {
+                        self.userData.gameReset()
+                    }label: {
+                        Text("Play Again?")
+                            .font(.system(.title3, design: .rounded))
+                            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                            .frame(maxWidth: 200)
+                            .background(.black)
+                            .foregroundColor(.white)
+                            .clipShape(Capsule())
+                    }
                 }
-                Spacer()
+                .padding(20)
+                .background(Rectangle().foregroundColor(.white).cornerRadius(10).frame(height: bounds.size.height/2))
+                .padding(15)
+                .animation(.easeInOut, value: 0.2)
+                
                 
             }
-            
             
             
         //holds the application is portrait mode and when screen is not active removes the hold
@@ -119,6 +153,9 @@ struct ContentView: View {
         }.onDisappear {
             AppDelegate.orientationLock = .all // Unlocking the rotation when leaving the view
         }
+        
+        
+        
         
     }
     
@@ -155,7 +192,16 @@ struct ContentView: View {
             self.userData.handleDraw()
         }
         
-        self.userData.prepareNextHand()
+        self.userData.checkGameOver()
+        
+        //if game is over end it otherwise prepare next hand
+        if(!self.userData.gameOver) {
+            self.userData.prepareNextHand()
+        } else {
+            playerCard = "back"
+            cpuCard = "back"
+        }
+        
         userData.calculateSteak(runningStreak)
     }
     
@@ -167,6 +213,7 @@ struct ContentView: View {
 }
 
 struct BettingButton: View {
+    @ObservedObject var userData = UserData.shared
     let buttonTitle: String
     let action: () -> Void
     
@@ -178,6 +225,7 @@ struct BettingButton: View {
             .background(.yellow)
             .foregroundColor(.black)
             .clipShape(Capsule())
+            .disabled(self.userData.gameOver)
     }
 }
 
