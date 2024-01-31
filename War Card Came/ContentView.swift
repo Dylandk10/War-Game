@@ -114,16 +114,22 @@ struct ContentView: View {
                 VStack {
                     
                     HStack {
-                        Image(systemName: "gamecontroller")
-                            .imageScale(.large)
+                        Image(systemName: "gamecontroller.fill")
+                            .font(.system(size: 30))
+                            .foregroundColor(.blue)
                         Text("Game Over!")
-                            .font(.title)
+                            .font(.system(size: 30))
+                            .fontWeight(.bold)
                             .padding()
-                        Image(systemName: "gamecontroller")
-                            .imageScale(.large)
+                            .foregroundColor(.red)
+                        Image(systemName: "gamecontroller.fill")
+                            .font(.system(size: 30))
+                            .foregroundColor(.blue)
                         
                     }
                     Text("What a game! with its always hard to decide when to bet and when to not!")
+                        .font(.system(size: 20))
+                    Spacer().frame(height: 25)
 
                     Button {
                         self.userData.gameReset()
@@ -132,15 +138,17 @@ struct ContentView: View {
                             .font(.system(.title3, design: .rounded))
                             .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
                             .frame(maxWidth: 200)
-                            .background(.black)
+                            .background(.blue)
                             .foregroundColor(.white)
                             .clipShape(Capsule())
+                            
                     }
                 }
+                
                 .padding(20)
                 .background(Rectangle().foregroundColor(.white).cornerRadius(10).frame(height: bounds.size.height/2))
+                
                 .padding(15)
-                .animation(.easeInOut, value: 0.2)
                 
                 
             }

@@ -15,7 +15,7 @@ class UserData :ObservableObject {
     
     static let shared = UserData()
     
-    @Published var gameOver = false
+    @Published var gameOver = true
     
     //over all longest streak
     @Published var longestStreak: Int
