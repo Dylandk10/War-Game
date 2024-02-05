@@ -23,11 +23,13 @@ class QuoteHandler : ObservableObject {
         return importedModels
     }
     
+    
+    
 }
 
 struct Quotes: Decodable {
     let id: String
     let name: String
-    let type: String
+    let symbol: String
     let quote: String
 }

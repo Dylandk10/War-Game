@@ -31,7 +31,11 @@ struct MainMenu: View {
                             MenuButtonNavigation(buttonTitle: "Play Now")
                         })
                         
-                        Spacer().frame(height: 25)
+                        NavigationLink(destination: GameBreak(), label: {
+                            MenuButtonNavigation(buttonTitle: "Game Break")
+                        })
+                        
+                        Spacer().frame(height: 8)
                         MenuButtonAction(buttonTitle: "Reset Longest Streak", action: {self.isPopUp = true})
                         Text("Created By Dylan Kelly")
                             .padding(.top, 50)

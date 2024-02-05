@@ -2,31 +2,31 @@
        {
         "id": "1",
          "name": "Bob Vance",
-         "type": "sad",
+         "symbol": "cloud.drizzle.fill",
          "quote": "This is a quote from Bob Vance to see if this data works."
        },
        {
            "id": "2",
          "name": "Vinny Chase",
-         "type": "happy",
+         "symbol": "smiley.fill",
          "quote": "A quote from the great vinny chase to see if this data works"
        },
        {
            "id": "3",
         "name": "Test User",
-        "type": "happy",
+        "symbol": "smiley.fill",
         "quote": "Another great quote and I want to test these to see if they work lets see if I can make this happen"
       },
       {
           "id": "4",
         "name": "User Test",
-        "type": "sad",
+        "symbol": "cloud.drizzle.fill",
         "quote": "This is now the person I want to see qith a quote lets see if I can make this happen."
       },
       {
           "id": "5",
         "name": "Mannly Man",
-        "type": "happy",
+        "symbol": "smiley.fill",
         "quote": "This will be the final quote to see if I can make this data work as though I hope to expect. Maybe use the data handler"
       }
 ]
