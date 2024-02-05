@@ -1,32 +1,32 @@
 [
        {
         "id": "1",
-         "name": "Bob Vance",
+         "name": "Dan Millman",
          "symbol": "cloud.drizzle.fill",
-         "quote": "This is a quote from Bob Vance to see if this data works."
+         "quote": "You don't have to control your thoughts. You just have to stop letting them control you"
        },
        {
            "id": "2",
-         "name": "Vinny Chase",
+         "name": "Ernest Hemingway",
          "symbol": "smiley.fill",
-         "quote": "A quote from the great vinny chase to see if this data works"
+         "quote": "You are so brave and quiet, I forget you are suffering."
        },
        {
            "id": "3",
-        "name": "Test User",
+        "name": "Noam Shpancer, PHD",
         "symbol": "smiley.fill",
-        "quote": "Another great quote and I want to test these to see if they work lets see if I can make this happen"
+        "quote": "Mental health is not a destination, but a process. It's about how you drive, not where you're going."
       },
       {
           "id": "4",
-        "name": "User Test",
+        "name": "Alan Watts",
         "symbol": "cloud.drizzle.fill",
-        "quote": "This is now the person I want to see qith a quote lets see if I can make this happen."
+        "quote": "No amount of anxiety makes any difference to anything that is going happen."
       },
       {
           "id": "5",
-        "name": "Mannly Man",
+        "name": "The Buddha",
         "symbol": "smiley.fill",
-        "quote": "This will be the final quote to see if I can make this data work as though I hope to expect. Maybe use the data handler"
+        "quote": "There is no path to happiness: happiness is the path"
       }
 ]

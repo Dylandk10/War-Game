@@ -26,12 +26,12 @@ class QuoteHandler : ObservableObject {
     }
     
     func getSingleQuote() -> Quotes {
-        let rand = Int.random(in: 2...quotes.count-1)
+        let rand = Int.random(in: 0...quotes.count-1)
         return self.quotes[rand]
     }
     
     func setNewQuote() -> Void {
-        let rand = Int.random(in: 2...quotes.count-1)
+        let rand = Int.random(in: 0...quotes.count-1)
         self.singleQuote = self.quotes[rand]
     }
     

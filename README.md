@@ -11,7 +11,11 @@ An iOS app built as a basic war game with enhanced features
 - Reset Longest Streak: Users can now reset their longest win streak
 - Multiple Games: Don't just play once play again and again!
 - Placing bets: Added fun and easy way for users to bet against the computer
+- a game break screen to take a break
+- horizonal carousel for scrolling quotes
+- Random quote generator to generate random quotes
 
 ## Images
 ![The main Menu of the application](/images/mainmenu.png)
 ![The main game interface](/images/maingame.png)
+![The game break interface](/images/gamebreak.png)
