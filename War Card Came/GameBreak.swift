@@ -8,17 +8,24 @@
 import SwiftUI
 
 struct GameBreak: View {
+    @ObservedObject var quoteHandler = QuoteHandler()
+    init(quoteHandler: QuoteHandler = QuoteHandler()) {
+        self.quoteHandler = quoteHandler
+    }
     var body: some View {
         ZStack {
-            Color(.gray)
+            Image("wintery-sunburst")
+                .resizable()
                 .ignoresSafeArea()
             VStack {
+                Text("Favorite Quotes!")
+                    .font(.title)
                 CarouselCard()
                     
-                MainInfoCard()
+                MainInfoCard(quoteHandler: self.quoteHandler)
                 
                 Spacer()
-                QuoteButtonAction(buttonTitle: "Get Quote", action: {})
+                QuoteButtonAction(buttonTitle: "Get Quote", action: {quoteHandler.setNewQuote()})
                     .padding()
             }
         }
@@ -26,11 +33,10 @@ struct GameBreak: View {
 }
 
 struct MainInfoCard : View {
-    let titleContent = "Name of Person"
-    let bodyContent = "This is some body test to hold in place. This is where the quote will be"
+    @ObservedObject var quoteHandler: QuoteHandler
     var body: some View {
         VStack {
-            Text(titleContent)
+            Text(quoteHandler.singleQuote.name)
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.bottom, 4)
@@ -42,7 +48,7 @@ struct MainInfoCard : View {
                     .font(.system(size: 25))
                 
             }
-            Text(bodyContent)
+            Text(quoteHandler.singleQuote.quote)
                 .font(.system(size: 25))
         }
         .padding(20)
